@@ -5,19 +5,19 @@ use ieee.numeric_std.all;
 
 use std.textio.all;
 
-entity xGradient is
+entity yGradient is
 	
-	-- Takes as input a matrix of 9 values and outputs the gradient in the X-Direction based on the Sobel operator
+	-- Takes as input a matrix of 9 values and outputs the gradient in the Y-Direction based on the Sobel operator
 	-- NOTE: Can be optimized further
 	port(
 		clk : in std_logic;
 		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in std_logic_vector(7 downto 0);
 		gradientInX : out std_logic_vector(7 downto 0));
 
-end xGradient;
+end yGradient;
 
 
-architecture implementation of xGradient is
+architecture implementation of yGradient is
 	
 	
 	
@@ -36,7 +36,7 @@ architecture implementation of xGradient is
 			
 			-- Calculate gradient using Sobel operator
 			-- NOTE: Not sure if this is the most efficient way to do integer subtraction but needed to get it done
-			intermediate := to_integer(signed(x11))+2*to_integer(signed(x21))+to_integer(signed(x31)) - to_integer(signed(x13))-2*to_integer(signed(x23))-to_integer(signed(x33));
+			intermediate := to_integer(signed(x11))+2*to_integer(signed(x12))+to_integer(signed(x13)) - to_integer(signed(x31))-2*to_integer(signed(x32))-to_integer(signed(x33));
 			
 			-- If result is out of bounds put it in bounds
 			if (intermediate > 255) then
