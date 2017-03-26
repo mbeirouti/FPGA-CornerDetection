@@ -55,6 +55,8 @@ begin
 	process 
 
 	begin
+	
+		wait for 0.5 * clk_period;
 
 		for i in 500 to 1000 loop
 
@@ -64,7 +66,7 @@ begin
 			
 			wait for 1 * clk_period;
 			
-			
+			assert p1 = rowA(23 downto 16) and p2 = rowA(15 downto 8) and p3 = rowA(7 downto 0) and p4 = rowB(23 downto 16) and p5 = rowB(15 downto 8) and p6 = rowB(7 downto 0) and  p7 = rowC(23 downto 16) and p8 = rowC(15 downto 8) and p9 = rowC(7 downto 0) report "Memory failed to propagate."; 
 
 		end loop;
 
