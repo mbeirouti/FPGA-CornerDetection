@@ -15,7 +15,6 @@ signal finished: STD_logic := '0';
 
 
 
--- RIPPLE CARRY ADDER
 component xGradient is
 
 	port(
