@@ -55,10 +55,10 @@ begin
 			
 			-- Splitting input in bytes and storing to memory.
 			
-			for i in 0 to 3 loop
+			for i in 0 to 2 loop
 				internalMemory(i) <= rowA(23-i*8 downto 16-i*8);
-				internalMemory(i+4) <= rowB(23-i*8 downto 16-i*8);
-				internalMemory(i+7) <= rowC(23-i*8 downto 16-i*8);
+				internalMemory(i+3) <= rowB(23-i*8 downto 16-i*8);
+				internalMemory(i+6) <= rowC(23-i*8 downto 16-i*8);
 			end loop;
 			
 		end if;
