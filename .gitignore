@@ -34,3 +34,4 @@ VHDL-Project/incremental_db/README
 *.logdb
 *.tdb
 *.tmw_info
+work/*
