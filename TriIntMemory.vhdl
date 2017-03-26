@@ -1,5 +1,7 @@
 library IEEE;
 
+use ieee.std_logic_1164.all;
+
 entity TriIntMemory is
 
 	port (
@@ -16,7 +18,7 @@ signal xMem,yMem,xyMem: integer := 0;
 
 begin
 
-	process
+	process(clock)
 	
 	begin
 	
