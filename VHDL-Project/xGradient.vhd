@@ -22,17 +22,16 @@ architecture implementation of xGradient is
 	
 	begin
 
-	
 	SobelOperator : process(clk)
+
 	
-		-- Intermediate variable used to ensure the operation returns a result between 0 and 255
-		variable intermediate : integer range -1021 to 1021;
-		
-		
 	
 	begin
-	
+		
+		-- Calculate gradient using Sobel operator
 		gradientMem <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
+		
+		-- NEED TO DEAL WITH OVERFLOW
 		
 		-- On rising edge
 		if rising_edge(clk) then

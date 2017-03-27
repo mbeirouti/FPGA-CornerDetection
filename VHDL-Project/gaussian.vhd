@@ -11,8 +11,8 @@ entity gaussian is
 	-- NOTE: Can be optimized further
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in unsigned(7 downto 0);
-		gaussian : out unsigned(7 downto 0));
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer;
+		gaussian : out integer);
 
 end gaussian;
 

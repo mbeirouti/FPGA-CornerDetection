@@ -17,19 +17,27 @@ end yGradient;
 
 
 architecture implementation of yGradient is
-
+	
+	signal gradientMem: integer;
+	
 	begin
 	
 	SobelOperator : process(clk)
-
+	
+	
+	
 	begin
+		
+		-- Calculate gradient using Sobel operator
+		gradientMem <= x11 + 2*x12 + x13 - x31 - 2*x32 - x33;
+		
+		-- NEED TO DEAL WITH OVERFLOW
 		
 		-- On rising edge
 		if rising_edge(clk) then
 			
-			-- Calculate gradient using Sobel operator
-			gradientInY <= x11 + 2*x12 + x13 - x31 - 2*x32 - x33;
-
+			gradientInY <= gradientMem;
+			
 		end if;
 	
 	end process SobelOperator;
