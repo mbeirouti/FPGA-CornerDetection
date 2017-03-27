@@ -32,13 +32,14 @@ architecture implementation of gaussian is
 		-- On rising edge
 		if(clk'EVENT and clk = '1') then
 			
+			gaussian <= (x11 + 2*x12 + x13 + 2*x21 + 4*x22 + 2*x23 + x31 + 2*x32 + x33)*(1/16);
 		
 		end if;
 	
 	end process GaussianOperator;
 	
 	
-	gaussian <= x11;
+	
 	
 
 

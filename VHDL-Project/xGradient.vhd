@@ -37,9 +37,7 @@ architecture implementation of xGradient is
 		-- On rising edge
 		if rising_edge(clk) then
 			
-			-- Calculate gradient using Sobel operator
-			-- NOTE: Not sure if this is the most efficient way to do integer subtraction but needed to get it done
---			intermediate := to_integer(signed(x11))+2*to_integer(signed(x21))+to_integer(signed(x31)) - to_integer(signed(x13))-2*to_integer(signed(x23))-to_integer(signed(x33));
+			
 --			
 --			-- If result is out of bounds put it in bounds
 --			if (intermediate > 255) then
@@ -47,11 +45,18 @@ architecture implementation of xGradient is
 --			elsif (intermediate < 0) then
 --				intermediate := 0;
 --			end if;
+<<<<<<< HEAD
 			
 			-- Output value
 --			gradientInX <= std_logic_vector(to_signed(intermediate, 8));
 			
 			gradientInX <= gradientMem;
+=======
+
+
+			-- Calculate gradient using Sobel operator
+			gradientInX <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
+>>>>>>> 62ddd312bd75c89b5e79474a1188654873224610
 		
 		end if;
 	
