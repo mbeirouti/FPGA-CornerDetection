@@ -36,27 +36,8 @@ architecture implementation of xGradient is
 		
 		-- On rising edge
 		if rising_edge(clk) then
-			
-			
---			
---			-- If result is out of bounds put it in bounds
---			if (intermediate > 255) then
---				intermediate := 255;
---			elsif (intermediate < 0) then
---				intermediate := 0;
---			end if;
-<<<<<<< HEAD
-			
-			-- Output value
---			gradientInX <= std_logic_vector(to_signed(intermediate, 8));
-			
+						
 			gradientInX <= gradientMem;
-=======
-
-
-			-- Calculate gradient using Sobel operator
-			gradientInX <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
->>>>>>> 62ddd312bd75c89b5e79474a1188654873224610
 		
 		end if;
 	
