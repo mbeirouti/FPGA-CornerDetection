@@ -16,7 +16,7 @@ component TriIntMemory
 
 	port (
 		clock: in std_logic;
-		yIn, xIn, xyIn: in integer;
+		yIn, xIn, xyIn: in integer := 0;
 		yOut,xOut,xyOut: out integer
 	);
 	
@@ -47,15 +47,18 @@ begin
 	
 		wait for 0.5 * clk_period;
 	
-		xIn <= 5;
-		yIn <= 10;
-		xyIn <= 31;
+		for i in 0 to 10 loop
+			xIn <= i;
+			yIn <= i*50;
+			xyIn <= i *100;
+			
+			wait for 1 * clk_period;
 		
-		wait for 1 * clk_period;
+			assert xOut = xIn and yIn = yOut and xyIn = xyOut report "Failed to propagate.";
 		
-		assert xOut = xIn and yIn = yOut and xyIn = xyOut report "Failed to propagate.";
-		
-		wait for 1 * clk_period;
+			wait for 1 * clk_period;
+			
+		end loop;
 		
 		wait;
 	
