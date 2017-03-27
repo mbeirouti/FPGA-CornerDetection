@@ -5,11 +5,11 @@ use ieee.numeric_std.all;
 
 use std.textio.all;
  
-entity testbench is
+entity squaresTB is
 -- empty
-end testbench; 
+end squaresTB; 
 
-architecture tb of testbench is
+architecture implementation of squaresTB is
 
 
 SIGNAL clk: STD_LOGIC := '0';
@@ -80,4 +80,4 @@ begin
   end process;
     
   
-end tb;
+end implementation;
