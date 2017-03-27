@@ -19,13 +19,13 @@ component xGradient is
 
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in std_logic_vector(7 downto 0);
-		gradientInX : out std_logic_vector(7 downto 0));
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer;
+		gradientInX : out integer);
 
 end component;
 
-	signal A, B, C, D, E, F, G, H, I : std_logic_vector(7 downto 0);
-	signal output : std_logic_vector(7 downto 0);
+	signal A, B, C, D, E, F, G, H, I : integer;
+	signal output : integer;
   
 
 
@@ -40,38 +40,38 @@ begin
 	
 	begin
 		-- How can we set the lines for each input using an integer value?
-		A <= "00000001";
-		B <= "00000001";
-		C <= "00000001";
-		D <= "00000001";
-		E <= "00000001";
-		F <= "00000001";
-		G <= "00000001";
-		H <= "00000001";
-		I <= "00000001";
+		A <= 1;
+		B <= 1;
+		C <= 1;
+		D <= 1;
+		E <= 1;
+		F <= 1;
+		G <= 1;
+		H <= 1;
+		I <= 1;
 	
 		wait for clk_period;
 		wait for clk_period;
 	
-		assert(output = "00000000") report "Trivial Case Not Working" severity error;
+		assert(output = 0) report "Trivial Case Not Working" severity error;
 	
 		test := 33;
 		
 		-- How can we set the lines for each input using an integer value?
-		A <= "00001111";
-		B <= "00001111";--
-		C <= "00001111";
-		D <= "00011111";
-		E <= "00001111";--
-		F <= "00001111";
-		G <= "00011111";
-		H <= "00001111";--
-		I <= "00001111";
+		A <= 15;
+		B <= 15;--
+		C <= 15;
+		D <= 15;
+		E <= 15;--
+		F <= 15;
+		G <= 31;
+		H <= 15;--
+		I <= 15;
 
 	
 		wait for clk_period;
 		wait for clk_period;
-		assert(output = "00110000") report "Random Case Not Working" severity error;
+		assert(output = 16) report "Random Case Not Working" severity error;
 	
 	
 		-- NOTE: Add in more test cases later...
