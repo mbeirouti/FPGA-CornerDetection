@@ -3,25 +3,22 @@ library IEEE;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use std.textio.all;
-
 entity squares is
 	
 
 	port(
 		clk : in std_logic;
-		xGrad : in unsigned(7 downto 0);
-		yGrad : in unsigned(7 downto 0);
-		xGradSq : out unsigned(15 downto 0);
-		yGradSq: out unsigned(15 downto 0);
-		xyGrad : out unsigned(15 downto 0));
+		xGrad : in integer;
+		yGrad : in integer;
+		xGradSq : out integer;
+		yGradSq: out integer;
+		xyGrad : out integer	
+	);
 
 end squares;
 
 
 architecture implementation of squares is
-	
-	
 	
 	begin
 
@@ -30,7 +27,7 @@ architecture implementation of squares is
 	
 		begin
 		
-			if(clk'EVENT and clk = '1') then
+			if rising_edge(clk) then
 	
 				xGradSq <= xGrad * xGrad;
 				yGradSq <= yGrad * yGrad;
