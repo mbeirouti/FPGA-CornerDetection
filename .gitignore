@@ -41,3 +41,4 @@ VHDL-Project/ORB-SLAM.qws
 *.sft
 simulation/
 *.exe
+*.vwf
