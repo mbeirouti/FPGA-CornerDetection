@@ -21,13 +21,13 @@ architecture implementation of xGradient is
 	signal gradientMem: integer;
 	
 	begin
-
 	
-    gradientMem <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
-    
-    SobelOperator : process(clk)
-    
-    begin
+	
+	gradientMem <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
+	
+	SobelOperator : process(clk)
+	
+	begin
 	 
 		if rising_edge(clk) then
 			if (gradientMem > 255) then

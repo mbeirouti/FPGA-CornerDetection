@@ -16,12 +16,12 @@ signal finished: STD_logic := '0';
 
 
 -- RIPPLE CARRY ADDER
-component xGradient is
+component yGradient is
 
 	port(
 		clk : in std_logic;
 		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer range 0 to 255;
-		gradientInX : out integer range 0 to 255
+		gradientInY : out integer range 0 to 255
 	);
 
 end component;
@@ -36,8 +36,8 @@ end component;
 
 begin
 	
-	TESTCOMP : xGradient port map (clk, A, D, G, B, E, H, C, F, I, output);
-	-- Signal mappings are such that A, B, C are first column and G, H, I are third column in the kernel
+	TESTCOMP : yGradient port map (clk, A, B, C, D, E, F, G, H, I, output);
+	-- Signal mappings are such that A, B, C are first row and G, H, I are third row in the kernel
 
   clk <= not clk after clk_period/2 when finished /= '1' else '0';
   
