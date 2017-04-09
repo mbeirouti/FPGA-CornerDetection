@@ -38,3 +38,6 @@ work/*
 *.wlf
 *.tdf
 VHDL-Project/ORB-SLAM.qws
+*.sft
+simulation/
+*.exe
