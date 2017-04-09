@@ -10,79 +10,51 @@ use std.textio.all;
 entity FileDataFeed_tb is
 end entity;
 
-architecture FileDataFeed of FileDataFeed_tb is
+architecture FileDataFeed_tst of FileDataFeed_tb is
 
---File declarations
-file inFile: text;
+	constant CLK_PERIOD: time := 1 ns;
 
---Input height and width
-signal imgHeight: std_logic_vector(31 downto 0) := (others => '0');
-signal imgWidth: std_logic_vector(31 downto 0) := (others => '0');
+	signal CLOCK: std_logic := '0';
+	signal sendPatch: std_logic := '0';
+	signal feedReady: std_logic := '0';
+	signal imgWidth,imgHeight: std_logic_vector(31 downto 0) := (others => '0');
+	signal pixelRow1,pixelRow2,pixelRow3: std_logic_vector(23 downto 0) := (others => '0');
+	
+	component FileDataFeed
+	
+		port(
+			CLOCK: in std_logic;
+			sendPatch: in std_logic;
+			
+			feedReady: out std_logic;
+			imgWidth,imgHeight : out std_logic_vector(31 downto 0) := (others => 'Z');
+			pixelRow1,pixelRow2,pixelRow3: out std_logic_vector(23 downto 0) := (others => 'Z')
+		);
+		
+	end component;
 
 begin
 
-readIO: process
+	FDF: FileDataFeed port map(CLOCK, sendPatch,feedReady, imgWidth, imgHeight, pixelRow1, pixelRow2, pixelRow3);
 
-variable inLine: line;
-variable inByte: character;
-variable currentByte: integer := 8;
-
-begin
-
---Open input file
-file_open(inFile, "input_data.dat", read_mode);
-
---File is written as a hex blob, no newlines.
-readline(inFile,inLine);
-
---Read the first 4 bytes of the file, image height.
-read(inLine,inByte);
-imgHeight(7 downto 0) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgHeight(15 downto 8) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgHeight(23 downto 16) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgHeight(31 downto 24) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
---Read second 4 bytes of the file, image width.
-read(inLine,inByte);
-imgWidth(7 downto 0) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgWidth(15 downto 8) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgWidth(23 downto 16) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
-read(inLine,inByte);
-imgWidth(31 downto 24) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-
---Allowing for the previous two reads to settle.
-wait for 1 ns;
-
---Calculated data segment size.
-report "Calculated size: "& integer'image(to_integer(unsigned(imgHeight)) * to_integer(unsigned(imgWidth))) & " bytes of image data.";
-
---Reading over the available bytes.
-while (currentByte < to_integer(unsigned(imgHeight)) * to_integer(unsigned(imgWidth))) loop
-
---Processing to component goes here.
-read(inLine,inByte);
-report character'image(inByte);
-wait for 1 ns;
-currentByte := currentByte + 1;
-
-end loop;
-
---Close file
-file_close(inFile);
-
-wait;
-
-end process readIO;
-
+	CLK: process
+	
+	begin
+	
+		CLOCK <= '0';
+		wait for 0.5 * CLK_PERIOD;
+		CLOCK <= '1';
+		wait for 0.5 * CLK_PERIOD;
+	
+	end process;
+	
+	TST: process
+	
+	begin
+	
+		wait;
+		
+	end process;
+	
+	
 end architecture;
