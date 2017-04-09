@@ -19,12 +19,20 @@ The following lines are the pixel data for the whole image.
 #Open the image file.
 filename = input("Image file: ")
 
+print("Reading file...")
+
 #Convert to grayscale (colours not needed for edge detection).
 imageSource = Image.open(filename).convert("L")
+
+print("Source image grayscaled.")
+
+#Loading pixel data
 imageData = imageSource.load()
 
 #Acquiring dimensions
 imageWidth, imageHeight = imageSource.size
+
+print("Building output binary file...")
 
 #Preparing output file
 outputFile = open("processedImageData.bin","wb")
@@ -44,6 +52,7 @@ for x in range(imageWidth):
 		if currentPixel > 255:
 			currentPixel = 255
 
+		#Store pixel in the pixel matrix
 		imageSource.putpixel((x,y),currentPixel)
 		lineData.append(currentPixel)
 
@@ -54,4 +63,7 @@ for x in range(imageWidth):
 outputFile.close()
 
 #Output transformed image for validation
-imageSource.save('out.jpg')
+targetFilename = "out.{}".format(filename[len(filename)-3:len(filename)])
+imageSource.save(targetFilename)
+
+print("All done! Generated {}".format(targetFilename))
