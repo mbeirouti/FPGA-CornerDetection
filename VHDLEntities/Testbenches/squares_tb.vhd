@@ -20,13 +20,13 @@ component squares is
 
 	port(
 		clk : in std_logic;
-		xGrad : in integer;
-		yGrad : in integer;
-		xGradSq : out integer;
-		yGradSq: out integer;
-		xyGrad : out integer
+		xGrad : in integer range 0 to 255;
+		yGrad : in integer range 0 to 255;
+		xGradSq : out integer range 0 to 65026;
+		yGradSq: out integer range 0 to 65026;
+		xyGrad : out integer range 0 to 65026	
 	);
-
+	
 end component;
 
 signal xGradient, yGradient : integer;

@@ -12,30 +12,36 @@ entity gaussian is
 	port(
 		clk : in std_logic;
 		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer;
-		gaussian : out integer);
+		gaussian : out integer range 0 to 255);
 
 end gaussian;
 
 
 architecture implementation of gaussian is
 	
-	
+	signal gaussianMem: integer;
 	
 	begin
-
+	
+	
+	gaussianMem <= (x11 + 2*x12 + x13 + 2*x21 + 4*x22 + 2*x23 + x31 + 2*x32 + x33)/16;
+	
 	
 	GaussianOperator : process(clk)
 	
-	
 	begin
-		
 		-- On rising edge
-		if(clk'EVENT and clk = '1') then
-			
-			gaussian <= (x11 + 2*x12 + x13 + 2*x21 + 4*x22 + 2*x23 + x31 + 2*x32 + x33)*(1/16);
+		if rising_edge(clk) then
+			if (gaussianMem > 255) then
+				gaussian <= 255;
+			elsif (gaussianMem < 0) then
+				gaussian <= 0;
+			else 
+				gaussian <= gaussianMem;
+			end if;
 		
 		end if;
-	
+		
 	end process GaussianOperator;
 	
 	
