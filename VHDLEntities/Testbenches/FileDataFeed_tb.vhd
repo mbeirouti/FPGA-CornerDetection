@@ -52,6 +52,18 @@ begin
 	
 	begin
 	
+		for i in 0 to 479999 loop
+		
+			sendPatch <= '1';
+			
+			wait for 1 * CLK_PERIOD;
+			
+			sendPatch <= '0';
+			
+			wait for 1 * CLK_PERIOD;
+		
+		end loop;
+	
 		wait;
 		
 	end process;
