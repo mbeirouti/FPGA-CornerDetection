@@ -23,12 +23,13 @@ end entity;
 architecture FileDataFeed_Impl of FileDataFeed is
 
 	--File declarations
-	file inFile: text;
-	file outFile: text;
+	type char_file_t is file of character;
+	file inFile: char_file_t;
+	file outFile: char_file_t;
 	
 	--Internal memory
 	--Fit for a 800x600 image
-	type memory is array (0 to 800*600) of std_logic_vector(7 downto 0);
+	type memory is array (0 to 800*600-1) of std_logic_vector(7 downto 0);
 	signal imageBuffer: memory;
 
 begin
@@ -43,9 +44,10 @@ begin
 		
 		variable imageWidth,imageHeight : std_logic_vector(31 downto 0):= (others => 'Z');
 		variable iWidth,iHeight,totalSize: integer := 0;
-
 		
-		variable currentState, nextState : integer range 0 to 3 := 0;
+		variable patchLocationX,patchLocationY: integer := 0;
+		
+		variable currentState, nextState : integer range 0 to 4 := 0;
 
 	begin
 
@@ -66,12 +68,11 @@ begin
 				file_open(inFile, "processedImageData.bin", read_mode);
 
 				--File is written as a hex blob, no newlines.
-				readline(inFile,inLine);
 
 				--Read the first 4 bytes (word) of the file, image height.
 				for i in 0 to 3 loop
 				
-					read(inLine,inByte);
+					read(inFile,inByte);
 					imageWidth(7+i*8 downto 0+i*8) := std_logic_vector(to_unsigned(character'pos(inByte),8));		
 				
 				end loop;
@@ -80,7 +81,7 @@ begin
 				
 				for i in 0 to 3 loop
 				
-					read(inLine,inByte);
+					read(inFile,inByte);
 					imageHeight(7+i*8 downto 0+i*8) := std_logic_vector(to_unsigned(character'pos(inByte),8));
 				
 				end loop;
@@ -91,54 +92,54 @@ begin
 
 				--Calculated data segment size.
 				report "Calculated size: "& integer'image(totalSize) & " bytes of image data.";
-				
-				for idx in 0 to inLine'length-1 loop
-				
-					read(inLine, inByte);
-					imageBuffer(currentByte) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-					currentByte := currentByte + 1;
-				
-				end loop;
-				
-				imageBuffer(currentByte) <= std_logic_vector(to_unsigned(0,8));
-				currentByte := currentByte + 1;
 
 				while not endfile(inFile) loop
 					
-					readline(inFile,inLine);
-					
-					report "newline";
-					
-					for idx in 0 to inLine'length-1 loop
-					
-						read(inLine,inByte);
+					read(inFile,inByte);
 				
-						imageBuffer(currentByte) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
-						currentByte := currentByte + 1;
-				
-					end loop;
-					
-					imageBuffer(currentByte) <= std_logic_vector(to_unsigned(0,8));
+					imageBuffer(currentByte) <= std_logic_vector(to_unsigned(character'pos(inByte),8));
 					currentByte := currentByte + 1;
 
 				end loop;
 				
+				--Setting output
 				imgWidth <= imageWidth;
 				imgHeight <= imageHeight;
+				
+				--Signaling that the feed is ready.
 				feedReady <= '1';
 				
 				nextState := 1;
 				
 			when 1 =>
+			
+				if sendPatch = '1' then
 				
-				nextState := 2;
+					nextState := 2;
+				
+				end if;
+				
+				
 				
 			when 2 =>
 				
 				nextState := 3;
 			
-			when others =>
+			when 3 =>
 				
+				file_open(outFile, "M1_dump.bin", write_mode);
+				
+				for i in 0 to 800*600-1 loop
+				
+					write(outFile,character'val(to_integer(unsigned(imageBuffer(i)))));
+				
+				end loop;
+				
+				nextState := 4;
+				
+			when 4 =>
+			
+				report "NOP.";
 				
 			end case;
 
