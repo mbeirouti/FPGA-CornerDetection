@@ -115,15 +115,40 @@ begin
 			
 				if sendPatch = '1' then
 				
+					pixelRow1 <= imageBuffer(patchLocationX+800*patchLocationY) & imageBuffer(patchLocationX+1+800*patchLocationY) & imageBuffer(patchLocationX+2+800*patchLocationY);
+					
+					pixelRow2 <= imageBuffer(patchLocationX+800*(patchLocationY+1)) & imageBuffer(patchLocationX+1+800*(patchLocationY+1)) & imageBuffer(patchLocationX+2+800*(patchLocationY+1));
+					
+					pixelRow3 <= imageBuffer(patchLocationX+800*(patchLocationY+2)) & imageBuffer(patchLocationX+1+800*(patchLocationY+2)) & imageBuffer(patchLocationX+2+800*(patchLocationY+2));
+				
 					nextState := 2;
 				
 				end if;
 				
-				
-				
 			when 2 =>
+			
+				if sendPatch = '1' then
 				
-				nextState := 3;
+					if (patchLocationX + 1) < 800-2 then
+						patchLocationX := patchLocationX + 1;
+						
+					else
+					
+						report "Row done.";
+					
+						patchLocationX := 0;
+						
+						if patchLocationY < 600-2 then
+							patchLocationY := patchLocationY + 1;
+						else
+							feedReady <= '0';
+						end if;
+						
+					end if;
+				
+					nextState := 1;
+				
+				end if;
 			
 			when 3 =>
 				
