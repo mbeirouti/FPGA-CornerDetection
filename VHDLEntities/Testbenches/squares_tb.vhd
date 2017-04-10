@@ -22,9 +22,9 @@ component squares is
 		clk : in std_logic;
 		xGrad : in integer range 0 to 255;
 		yGrad : in integer range 0 to 255;
-		xGradSq : out integer range 0 to 65026;
-		yGradSq: out integer range 0 to 65026;
-		xyGrad : out integer range 0 to 65026	
+		xGradSq : out integer range 0 to 255;
+		yGradSq: out integer range 0 to 255;
+		xyGrad : out integer range 0 to 255	
 	);
 	
 end component;

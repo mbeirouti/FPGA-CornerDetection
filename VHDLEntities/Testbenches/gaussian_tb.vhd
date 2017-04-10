@@ -20,7 +20,7 @@ component gaussian is
 
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer;
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer range 0 to 255;
 		gaussian : out integer range 0 to 255);
 
 end component;

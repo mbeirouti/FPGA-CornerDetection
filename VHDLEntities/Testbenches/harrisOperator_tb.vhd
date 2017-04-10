@@ -20,7 +20,7 @@ component harrisOperator is
 	
 	port(
 		clk : in std_logic;
-		gIxSq, gIySq, gIxIy : in integer;
+		gIxSq, gIySq, gIxIy : in integer range 0 to 255;
 		harris : out integer );
 
 end component;

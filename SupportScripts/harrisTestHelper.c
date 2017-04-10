@@ -31,7 +31,8 @@ int main () {
 
 		out = (gx*gy) - (gxy*gxy) - ((gx-gy)*(gx-gy))/25 ;
 
-		//array[0]*array[1] - (array[3]*array[3]) - ((array[0]-array[1])*(array[0]-array[1]))*(1.0/25);
+		// The operation below produced a weird result, find out why later:
+		// array[0]*array[1] - (array[3]*array[3]) - ((array[0]-array[1])*(array[0]-array[1]))*(1.0/25);
 
 		// if (out > 255){
 		// 	out = 255;
