@@ -37,10 +37,6 @@ print("Building output binary file...")
 #Preparing output file
 outputFile = open("processedImageData.bin","wb")
 
-#Simplified header
-outputFile.write(struct.pack('i',imageWidth))
-outputFile.write(struct.pack('i',imageHeight))
-
 #Per pixel processing
 for x in range(imageWidth):
 	lineData = list()
