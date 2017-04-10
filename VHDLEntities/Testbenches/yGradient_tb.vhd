@@ -2,11 +2,11 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
  
-entity testbench is
+entity yGradtestbench is
 -- empty
-end testbench; 
+end yGradtestbench; 
 
-architecture tb of testbench is
+architecture tb of yGradtestbench is
 
 
 SIGNAL clk: STD_LOGIC := '0';

@@ -3,6 +3,8 @@ library IEEE;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+
+
 entity xGradient is
 	
 	-- Takes as input a matrix of 9 values and outputs the gradient in the X-Direction based on the Sobel operator

@@ -1,12 +1,12 @@
-
+-- NOTE: NEED TO VERIFY CORRECTNESS OF VALUES
 library IEEE;
 use IEEE.std_logic_1164.all;
  
-entity xGradtestbench is
+entity gaustestbench is
 -- empty
-end xGradtestbench; 
+end gaustestbench; 
 
-architecture tb of xGradtestbench is
+architecture tb of gaustestbench is
 
 
 SIGNAL clk: STD_LOGIC := '0';
@@ -16,13 +16,12 @@ signal finished: STD_logic := '0';
 
 
 -- RIPPLE CARRY ADDER
-component xGradient is
+component gaussian is
 
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer range 0 to 255;
-		gradientInX : out integer range 0 to 255
-	);
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer;
+		gaussian : out integer range 0 to 255);
 
 end component;
 
@@ -36,7 +35,7 @@ end component;
 
 begin
 	
-	TESTCOMP : xGradient port map (clk, A, D, G, B, E, H, C, F, I, output);
+	TESTCOMP : gaussian port map (clk, A, D, G, B, E, H, C, F, I, output);
 	-- Signal mappings are such that A, B, C are first column and G, H, I are third column in the kernel
 
   clk <= not clk after clk_period/2 when finished /= '1' else '0';
