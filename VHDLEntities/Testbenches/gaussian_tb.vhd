@@ -10,7 +10,7 @@ architecture tb of gaustestbench is
 
 
 SIGNAL clk: STD_LOGIC := '0';
-CONSTANT clk_period : time := 500ns;
+CONSTANT clk_period : time := 10ns;
 signal finished: STD_logic := '0';
 
 

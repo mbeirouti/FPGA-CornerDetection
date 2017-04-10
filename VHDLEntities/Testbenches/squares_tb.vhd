@@ -11,7 +11,7 @@ architecture implementation of squaresTB is
 
 
 SIGNAL clk: STD_LOGIC := '0';
-CONSTANT clk_period : time := 1 ns; -- roughly 64 MHz
+CONSTANT clk_period : time := 10 ns; -- roughly 64 MHz
 signal finished: STD_logic := '0';
 
 
@@ -45,7 +45,7 @@ begin
   begin
   
   -- TEST CASES:
-  	xGradient <= 0;
+  	 xGradient <= 0;
     yGradient <= 0;
     wait for clk_period;
     
