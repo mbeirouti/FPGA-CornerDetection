@@ -15,22 +15,51 @@
 
 -- PROGRAM		"Quartus Prime"
 -- VERSION		"Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition"
--- CREATED		"Mon Apr 10 03:02:01 2017"
+-- CREATED		"Mon Apr 10 03:49:38 2017"
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all; 
 
 LIBRARY work;
 
-ENTITY firstHalf IS 
+ENTITY firsHalf IS 
 	PORT
 	(
-		clockOne :  IN  STD_LOGIC;
-		enable :  IN  STD_LOGIC
+		memModOneEnable :  IN  STD_LOGIC;
+		memModTwoEnable :  IN  STD_LOGIC;
+		clockFirstHalf :  IN  STD_LOGIC;
+		uselessLine :  IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcA :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcB :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcC :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcD :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcE :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcF :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcG :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcH :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcI :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcJ :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcK :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcL :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcM :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcN :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcO :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcP :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcQ :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcR :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcS :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcT :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcU :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcV :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcW :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcX :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcY :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcZ :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
+		dcza :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
-END firstHalf;
+END firsHalf;
 
-ARCHITECTURE bdf_type OF firstHalf IS 
+ARCHITECTURE bdf_type OF firsHalf IS 
 
 COMPONENT memoryblock
 GENERIC (fip : BOOLEAN
@@ -85,11 +114,12 @@ BEGIN
 
 
 
-b2v_memBlockIn : memoryblock
+b2v_fileInput : memoryblock
 GENERIC MAP(fip => true
 			)
-PORT MAP(CLOCK => clockOne,
-		 RW => enable,
+PORT MAP(CLOCK => clockFirstHalf,
+		 RW => memModOneEnable,
+		 pixelIn => uselessLine,
 		 p1 => SYNTHESIZED_WIRE_3,
 		 p2 => SYNTHESIZED_WIRE_4,
 		 p3 => SYNTHESIZED_WIRE_5,
@@ -101,29 +131,59 @@ PORT MAP(CLOCK => clockOne,
 		 p9 => SYNTHESIZED_WIRE_11);
 
 
-b2v_memBlockOut1 : memoryblock
-GENERIC MAP(fip => true
+b2v_IxIyMem : memoryblock
+GENERIC MAP(fip => false
 			)
-PORT MAP(CLOCK => clockOne,
-		 pixelIn => SYNTHESIZED_WIRE_0);
+PORT MAP(CLOCK => clockFirstHalf,
+		 RW => memModTwoEnable,
+		 pixelIn => SYNTHESIZED_WIRE_0,
+		 p1 => dcA,
+		 p2 => dcB,
+		 p3 => dcC,
+		 p4 => dcD,
+		 p5 => dcE,
+		 p6 => dcF,
+		 p7 => dcG,
+		 p8 => dcH,
+		 p9 => dcI);
 
 
-b2v_memBlockOut2 : memoryblock
-GENERIC MAP(fip => true
+b2v_IxsMem : memoryblock
+GENERIC MAP(fip => false
 			)
-PORT MAP(CLOCK => clockOne,
-		 pixelIn => SYNTHESIZED_WIRE_1);
+PORT MAP(CLOCK => clockFirstHalf,
+		 RW => memModTwoEnable,
+		 pixelIn => SYNTHESIZED_WIRE_1,
+		 p1 => dcJ,
+		 p2 => dcK,
+		 p3 => dcL,
+		 p4 => dcM,
+		 p5 => dcN,
+		 p6 => dcO,
+		 p7 => dcP,
+		 p8 => dcQ,
+		 p9 => dcR);
 
 
-b2v_memBlockOut3 : memoryblock
-GENERIC MAP(fip => true
+b2v_IysMem : memoryblock
+GENERIC MAP(fip => false
 			)
-PORT MAP(CLOCK => clockOne,
-		 pixelIn => SYNTHESIZED_WIRE_2);
+PORT MAP(CLOCK => clockFirstHalf,
+		 RW => memModTwoEnable,
+		 pixelIn => SYNTHESIZED_WIRE_2,
+		 p1 => dcS,
+		 p2 => dcT,
+		 p3 => dcU,
+		 p4 => dcV,
+		 p5 => dcW,
+		 p6 => dcX,
+		 p7 => dcY,
+		 p8 => dcZ,
+		 p9 => dcza);
 
 
-b2v_opOneFirstHalfTest : operationone
-PORT MAP(clk => clockOne,
+b2v_opOne : operationone
+PORT MAP(clk => clockFirstHalf,
 		 A => SYNTHESIZED_WIRE_3,
 		 B => SYNTHESIZED_WIRE_4,
 		 C => SYNTHESIZED_WIRE_5,
