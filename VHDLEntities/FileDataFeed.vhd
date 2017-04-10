@@ -146,6 +146,9 @@ begin
 			
 				if sendPatch = '1' then
 				
+				nextState := 3;
+				
+				
 					if (locX + 1) < imageWidth-1 then
 						locX := locX + 1;
 						
@@ -153,7 +156,7 @@ begin
 					
 						report "Row done.";
 						
-						nextState := 3;
+						
 					
 						locX := 0;
 						

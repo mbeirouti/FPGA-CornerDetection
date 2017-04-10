@@ -24,7 +24,7 @@ architecture FileDataFeed_tst of FileDataFeed_tb is
 	component FileDataFeed
 	
 		generic(
-			from_file: boolean := false
+			from_file: boolean := true
 		);
 	
 		port(
@@ -46,9 +46,9 @@ begin
 	
 	begin
 	
-		CLOCK <= '0';
-		wait for 0.5 * CLK_PERIOD;
 		CLOCK <= '1';
+		wait for 0.5 * CLK_PERIOD;
+		CLOCK <= '0';
 		wait for 0.5 * CLK_PERIOD;
 	
 	end process;
@@ -59,7 +59,6 @@ begin
 	
 		for i in 0 to 479999 loop
 		
-			pixelIn <= std_logic_vector(to_unsigned(255,8));
 			sendPatch <= '1';
 			
 			wait for 1 * CLK_PERIOD;
