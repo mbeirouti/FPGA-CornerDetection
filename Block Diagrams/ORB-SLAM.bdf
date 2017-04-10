@@ -24,7 +24,7 @@ agreement for further details.
 	(input)
 	(rect -392 -56 -224 -40)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "masterClock" (rect 5 0 66 17)(font "Intel Clear" ))
+	(text "masterClock" (rect 5 0 65 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -38,9 +38,9 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -392 272 -224 288)
+	(rect -408 272 -240 288)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "uselessLine" (rect 5 0 63 12)(font "Arial" ))
+	(text "uselessLine" (rect 5 0 62 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -56,7 +56,7 @@ agreement for further details.
 	(input)
 	(rect -448 464 -240 480)
 	(text "INPUT" (rect 165 0 193 10)(font "Arial" (font_size 6)))
-	(text "enableFirstMemModule" (rect 5 0 120 17)(font "Intel Clear" ))
+	(text "enableFirstMemModule" (rect 5 0 119 17)(font "Intel Clear" ))
 	(pt 208 8)
 	(drawing
 		(line (pt 124 12)(pt 149 12))
@@ -72,7 +72,7 @@ agreement for further details.
 	(input)
 	(rect -464 504 -240 520)
 	(text "INPUT" (rect 181 0 209 10)(font "Arial" (font_size 6)))
-	(text "enableSecondMemModule" (rect 5 0 134 17)(font "Intel Clear" ))
+	(text "enableSecondMemModule" (rect 5 0 133 17)(font "Intel Clear" ))
 	(pt 224 8)
 	(drawing
 		(line (pt 140 12)(pt 165 12))
@@ -1279,11 +1279,6 @@ agreement for further details.
 	(pt 104 -48)
 )
 (connector
-	(pt -136 280)
-	(pt -224 280)
-	(bus)
-)
-(connector
 	(pt -208 296)
 	(pt -136 296)
 )
@@ -1326,6 +1321,11 @@ agreement for further details.
 (connector
 	(pt -240 512)
 	(pt 232 512)
+)
+(connector
+	(pt -240 280)
+	(pt -136 280)
+	(bus)
 )
 (junction (pt 304 240))
 (junction (pt 104 -48))
