@@ -107,24 +107,26 @@ begin
 				nextState := 3;
 
 			when 2 =>
+			
+					if sendPatch = '1' then
 					
-					imageBuffer(locX,locY) <= pixelIn;
-					
-					if locX = imageHeight and locY = imageWidth then
-						locX := 0;
-						locY := 0;
+						imageBuffer(locX,locY) <= pixelIn;
 						
-						nextState := 5;
+						if locX = imageHeight and locY = imageWidth then
+							locX := 0;
+							locY := 0;
+							
+							nextState := 3;
+						end if;
+						
+						if locX < imageHeight then
+							locX := locX + 1;
+						else
+							locX := 1;
+							locY := locY + 1;
+						end if;
+						
 					end if;
-					
-					if locX < imageHeight then
-						locX := locX + 1;
-					else
-						locX := 1;
-						locY := locY + 1;
-					end if;
-					
-					report integer'image(locY);
 			
 			when 3 =>
 			

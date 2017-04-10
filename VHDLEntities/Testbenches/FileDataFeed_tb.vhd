@@ -60,6 +60,11 @@ begin
 		for i in 0 to 479999 loop
 		
 			pixelIn <= std_logic_vector(to_unsigned(255,8));
+			sendPatch <= '1';
+			
+			wait for 1 * CLK_PERIOD;
+			
+			sendPatch <= '0';
 			
 			wait for 1 * CLK_PERIOD;
 		
