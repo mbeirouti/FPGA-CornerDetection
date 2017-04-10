@@ -9,8 +9,8 @@ entity yGradient is
 	-- NOTE: Can be optimized further
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer range 0 to 255;
-		gradientInY : out integer range 0 to 255
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in std_logic_vector(7 downto 0);
+		gradientInY : out std_logic_vector(7 downto 0)
 	);
 
 end yGradient;
@@ -18,24 +18,27 @@ end yGradient;
 
 architecture implementation of yGradient is
 	
-	signal gradientMem: integer;
 	
 	begin
 
-	
-	gradientMem <= x11 + 2*x12 + x13 - x31 - 2*x32 - x33;    
+	 
    
 	SobelOperator : process(clk)
+	
+		variable gradientMem: integer;
 	
 	begin
 	 
 		if rising_edge(clk) then
+		
+			gradientMem := to_integer(unsigned(x11) + 2*unsigned(x12) + unsigned(x13) - unsigned(x31) - 2*unsigned(x32) - unsigned(x33));   
+			
 			if (gradientMem > 255) then
-				gradientInY <= 255;
+				gradientInY <= std_logic_vector(to_unsigned(255,8));
 			elsif (gradientMem < 0) then
-				gradientInY <= 0;
+				gradientInY <= std_logic_vector(to_unsigned(0,8));
 			else 
-				gradientInY <= gradientMem;
+				gradientInY <= std_logic_vector(to_unsigned(gradientMem,8));
 			end if;
 		end if;
 		

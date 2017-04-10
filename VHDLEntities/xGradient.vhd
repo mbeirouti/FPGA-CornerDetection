@@ -11,8 +11,8 @@ entity xGradient is
 	-- NOTE: Can be optimized further
 	port(
 		clk : in std_logic;
-		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in integer range 0 to 255;
-		gradientInX : out integer range 0 to 255
+		x11, x12, x13, x21, x22, x23, x31, x32, x33 : in std_logic_vector(7 downto 0);
+		gradientInX : out std_logic_vector(7 downto 0)
 	);
 
 end xGradient;
@@ -20,24 +20,24 @@ end xGradient;
 
 architecture implementation of xGradient is
 	
-	signal gradientMem: integer;
-	
 	begin
 	
-	
-	gradientMem <= x11 + 2*x21 + x31 - x13 - 2*x23 - x33;
-	
 	SobelOperator : process(clk)
+	
+	variable gradientMem: integer;
 	
 	begin
 	 
 		if rising_edge(clk) then
+		
+		gradientMem := to_integer(unsigned(x11) + 2*unsigned(x21) + unsigned(x31) - unsigned(x13) - 2*unsigned(x23) - unsigned(x33));
+		
 			if (gradientMem > 255) then
-				gradientInX <= 255;
+				gradientInX <= std_logic_vector(to_unsigned(255,8));
 			elsif (gradientMem < 0) then
-				gradientInX <= 0;
+				gradientInX <= std_logic_vector(to_unsigned(0,8));
 			else 
-				gradientInX <= gradientMem;
+				gradientInX <= std_logic_vector(to_unsigned(gradientMem,8));
 			end if;
 		end if;
 		
